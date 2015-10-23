@@ -1,0 +1,149 @@
+<languageVersion : 1.0;>
+
+kernel ResizeBorderTrim
+<   namespace : "bk";
+    vendor : "Baku Hashimoto";
+    version : 1;
+>
+{
+    input image4 src;
+    output pixel4 dst;
+
+    parameter float trimTop
+    <
+        minValue:       0.0;
+        maxValue:       2048.0;
+        defaultValue:   0.0;
+        displayName:    "Trim Top";
+    >;
+    
+    parameter float trimRight
+    <
+        minValue:       0.0;
+        maxValue:       2048.0;
+        defaultValue:   0.0;
+        displayName:    "Trim Right";
+    >;
+    
+    parameter float trimBottom
+    <
+        minValue:       0.0;
+        maxValue:       2048.0;
+        defaultValue:   0.0;
+        displayName:    "Trim Bottom";
+    >;
+    
+    parameter float trimLeft
+    <
+        minValue:       0.0;
+        maxValue:       2048.0;
+        defaultValue:   0.0;
+        displayName:    "Trim Left";
+    >;
+    
+    parameter float top
+    <
+        minValue:       0.0;
+        maxValue:       100.0;
+        defaultValue:   30.0;
+        displayName:    "Border Top";
+    >;
+   
+    parameter float right
+    <
+        minValue:       0.0;
+        maxValue:       100.0;
+        defaultValue:   30.0;
+        displayName:    "Border Right";
+    >;
+    
+    parameter float bottom
+    <
+        minValue:       0.0;
+        maxValue:       100.0;
+        defaultValue:   30.0;
+        displayName:    "Border Bottom";
+    >;
+    
+    parameter float left
+    <
+        minValue:       0.0;
+        maxValue:       100.0;
+        defaultValue:   30.0;
+        displayName:    "Border Left";
+    >;
+    
+    parameter float2 origin
+    <
+        minValue:       float2( 0.0, 0.0 );
+        maxValue:       float2( 1.0, 1.0 );
+        defaultValue:   float2( 0.0, 0.0 );
+        displayName:    "Origin";
+    >;
+    
+    parameter float2 size
+    <
+        minValue:       float2( 0.0, 0.0 );
+        maxValue:       float2( 2048.0, 2048.0 );
+        defaultValue:   float2( 100.0, 100.0 );
+        displayName:    "Input Size";
+    >;
+    
+    float map( float x, float inMin, float inMax, float outMin, float outMax ) {
+    
+        return ( x - inMin ) * ( outMax - outMin ) / ( inMax - inMin ) + outMin;
+    
+    }
+    
+    float resize( float x, float w, float xi, float xo, float bi, float bo ) {
+    
+        float xm;
+    
+        if ( xo - xi >= bi + bo ) {
+        
+            if ( x < xi + bi ) {
+                
+                xm = x - xi;
+                
+            } else if ( x < xo - bo ) {
+            
+                xm = x - xi; //map( x, xi + bi, xo - bo, bi, w - bo );
+                
+                
+            } else {
+            
+                xm = w - ( xo - x ); //map( x, xo - bo, xo, w - bo, w );
+                
+            }
+        
+        } else {
+        
+            if ( x < (xi+xo) / 2.0 ) {
+            
+                xm = x - xi;
+            
+            } else {
+            
+                xm = w - ( xo - x );
+            
+            }
+        
+        }
+        
+        return xm;
+    }
+
+    void evaluatePixel()
+    {
+        float2 pos = outCoord();
+        
+        float2 rectA = float2( trimLeft, trimTop );
+        float2 rectB = float2( size.x - trimRight, size.y - trimBottom );
+        
+        pos.x = resize( pos.x, size.x, rectA.x, rectB.x, left, right );
+        pos.y = resize( pos.y, size.y, rectA.y, rectB.y, top, bottom );
+        
+        dst = sampleNearest( src, pos );
+        
+    }
+}
