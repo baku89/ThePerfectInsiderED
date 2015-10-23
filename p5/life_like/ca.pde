@@ -4,8 +4,8 @@ boolean[] survive, birth;
 // rules
 
 // conway's game of life
-//int[] birthNum = { 3 };
-//int[] surviveNum = { 2, 3 };
+int[] birthNum = { 3 };
+int[] surviveNum = { 2, 3 };
 
 //// replicator
 //int[] birthNum = { 1, 3, 5, 7 };
@@ -56,8 +56,8 @@ boolean[] survive, birth;
 //int[] surviveNum = {2, 3, 4, 5, 6, 7, 8};
 
 //// mazectric
-int[] birthNum = {3};
-int[] surviveNum = {1, 2, 3, 4, 5};
+//int[] birthNum = {3};
+//int[] surviveNum = {1, 2, 3, 4, 5};
 
 // amoeba
 //int[] birthNum = {1, 3, 5, 8};
@@ -104,8 +104,8 @@ class LifeLikeCA
                 aliveNum = getAliveCount(buff, x, y);
                 next = colorDead;
                 
-                if (getStatus(buff, x, y)  == colorAlive) {
-                    if (survive[ aliveNum ]) {
+                if (buff.get(x, y)  == colorAlive) {
+                    if (survive[aliveNum]) {
                         next = colorAlive;
                     }
                 } else {
@@ -137,15 +137,6 @@ void setupLifeLikeRules() {
     for (int i = 0; i < birthNum.length; i++) {
         birth[birthNum[i]] = true;
     }
-    
-    for (int i = 0; i < 9; i++) {
-        print(survive[i] ? "T" : "F");
-    }
-    println("");
-    for (int i = 0; i < 9; i++) {
-        print(birth[i] ? "T" : "F");
-    }
-    
 }
 
 int getAliveCount(PImage field, int x, int y) {
@@ -169,6 +160,6 @@ int getStatus(PImage field, int x, int y) {
     if (x < 0 || field.width <= x || y < 0 || field.height <= y) {
         return 0;
     } else {
-        return field.get(x, y) == colorDead ? 1 : 0;
+        return field.get(x, y) != colorDead ? 1 : 0;
     }
 }
