@@ -1,4 +1,3 @@
-
 final color colorAlive = color( 200 );
 final color colorDead  = color( 100 );
 
@@ -54,7 +53,7 @@ class LifeLikeCA
                 
                 field[ x ][ y ] = c == colorSeed ? random(1) <= rate : false;
                 // init attr
-                space[x][y] = c != colorEmpty;// && c != colorTemp;
+                space[x][y] = c != colorEmpty;
                 
                 seed[ x ][ y ] = c == colorSeed;
                 wall[ x ][ y ] = c == colorWall;
@@ -101,10 +100,8 @@ class LifeLikeCA
                 c = seedImg.get( x, y );
                 seed[ x ][ y ] = c == colorSeed;
                 field[ x ][ y ] |= c == colorSeed; 
-                //seedCount += seed[x][y] ? 1 : 0;
             }
         }
-        //println( "f", frameCount-1, seedCount );
     }
     
     
@@ -124,9 +121,7 @@ class LifeLikeCA
     }
     
     void save( String name ) {
-    
         //field.save( name );
-    
     }
     
     int width() {

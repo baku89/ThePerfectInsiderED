@@ -1,8 +1,8 @@
 //---------------------------------------------
 // config
 
-String mapPath = "/Volumes/MugiRAID1/Works/2015/13_0xff/ae/volonoi_cell_large/volonoi_cell_large_2.png";
-String dstDir = "/Volumes/MugiRAID1/Works/2015/13_0xff/ca/dla"; 
+String weightMapPath = "../_dat/dla-weight-map.png";
+String destDir = "out"; 
 
 String filename = "dla_neumann_cell_large";
 
@@ -11,7 +11,7 @@ int particleCount = 10000;
 //---------------------------------------------
 // main
 
-PImage map, gradMap;
+PImage weightMap;
 int exportedCount = 0;
 
 ArrayList< Particle >  particles = new ArrayList< Particle >();
@@ -22,17 +22,14 @@ Point seed;
 void setup() {
     size(10, 10, P2D);
     noSmooth();
-    frameRate( 1000 );
     
-    map = loadImage( mapPath );
+    weightMap = loadImage(weightMapPath);
     
-    changeWindowSize( map.width, map.height );
+    changeWindowSize( weightMap.width, weightMap.height );
     
-    File dir = new File( dstDir + "/" + filename );
-    String[] list = dir.list();
-    exportedCount = list.length - 1;
+    File[] existsImages = listImageFiles(destDir);
+    exportedCount = existsImages.length - 1;
     println( exportedCount );
-  
     
     // create an array that stores the position of our particles
     field = new boolean[width * height];
@@ -63,8 +60,6 @@ void draw() {
     noFill();
     noStroke();
     
-    //image( map, 0, 0 );
-    
     Particle p;
     
     for(int i = 0, l = particles.size(); i < l; i++) {
@@ -90,21 +85,7 @@ void draw() {
 
 void keyPressed() {
         
-    String path = dstDir + "/" + filename + "/" + filename + "_" + String.format( "%04d", exportedCount++ ) + ".png";
+    String path = destDir + "/" + filename + "/" + filename + "_" + String.format( "%04d", exportedCount++ ) + ".png";
     println( "saved: " + path );
     saveFrame( path );
-}
-
-class Point {
-    
-    int x, y;
-    
-    Point( int _x, int _y ) {
-        x = _x;
-        y = _y;
-    }
-    
-    int index() {
-        return x + y * width;
-    }
 }

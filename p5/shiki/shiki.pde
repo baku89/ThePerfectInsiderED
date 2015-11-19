@@ -10,7 +10,7 @@ String[] defaultArgs = {
 // Processing
 
 String srcFolder;
-String dstFolder = "/Volumes/MugiRAID1/Works/2015/13_0xff/ca/shiki/02_anim";
+String destFolder = "/Volumes/MugiRAID1/Works/2015/13_0xff/ca/shiki/02_anim";
 int cellSize;
 
 String name;
@@ -63,7 +63,7 @@ void draw() {
    image( result, 0, 0 );
     
    String frameSuffix = String.format( "%04d", (frameCount-1) );
-   result.save( dstFolder + "/" + name + "_anim" + "/" + name + "_anim_" + frameCount + ".png" );
+   result.save( destFolder + "/" + name + "_anim" + "/" + name + "_anim_" + frameCount + ".png" );
     
     
    if ( index == files.length ) {

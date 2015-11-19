@@ -2,11 +2,8 @@
 // config
 
 String srcDir = "/Volumes/MugiRAID1/Works/2015/13_0xff/ca/filling/_src/";
-
-String dstDir = "/Volumes/MugiRAID1/Works/2015/13_0xff/ca/filling";
-
+String destDir = "/Volumes/MugiRAID1/Works/2015/13_0xff/ca/filling";
 String filename = "squares_qr_for_filling";
-
 
 int duration = 15;
 int startRand = 3;
@@ -44,8 +41,6 @@ ArrayList< Chain > chain;
 ArrayList< Frontier > frontier = new ArrayList< Frontier >();
 
 void setup() {
-        
-    //shape = createImage( 12, 12, RGB );
     
     shape = loadImage( srcDir + "/" + filename + ".png" );
     
@@ -56,7 +51,6 @@ void setup() {
     for ( int y = 0; y < shape.height; y++ ) {
        for ( int x = 0; x < shape.width; x++ ) {
            filled[x][y] = shape.get( x, y ) == color( 0 );
-           //filled[x][y] = false;//shape.get( x, y ) == color( 0 );
        }   
     }
     
@@ -187,7 +181,7 @@ void draw() {
        }
     }
     
-    saveFrame( dstDir + "/filling_" + filename + "/filling_" + filename + "_####.png" );
+    saveFrame( destDir + "/filling_" + filename + "/filling_" + filename + "_####.png" );
     
     if (frameCount == duration + 2 ) {
        println( "end", frameCount );
@@ -197,12 +191,10 @@ void draw() {
 }
 
 boolean isFilled( int x, int y ) {
-
     if ( x < 0 || y < 0 || x >= shape.width || y >= shape.height )
         return true;
     
     return filled[x][y];
-    
 }
 
 class Frontier {

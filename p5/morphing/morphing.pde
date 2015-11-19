@@ -3,17 +3,19 @@
 
 String srcFolder = "../_dat/lg";
 
-int cellWidth = 8;
-int frameDuration = 6;
+int cellWidth = 4;
+int frameDuration = 4;
 
 float gamma = 1;
+
+boolean isSave = false;
 
 //-------------------------------------------------------
 // main
 
 File[] files = null;
 int index = 0;
-int frame = 0;
+int counter = 0;
 
 PImage img, prevImg, changedImg;
 
@@ -40,7 +42,9 @@ void setup() {
     
    noSmooth();
 
-   files = listFiles(srcFolder);
+   files = listImageFiles(srcFolder);
+   
+   println(files.length);
 
    img = loadImage(files[0].getAbsolutePath());
    mapWidth = img.width;
@@ -61,7 +65,7 @@ void draw() {
     color c, pc;
     int dir;
     
-    if ( frame == 0 ) {
+    if ( counter == 0 ) {
         
         println("loading.." + index);
         img = loadImage(files[index].getAbsolutePath());
@@ -93,7 +97,7 @@ void draw() {
     }
     
     // draw animation
-    float t = float(frame) / frameDuration;
+    float t = float(counter) / frameDuration;
     t = (float) Math.pow( t, gamma );
 
     image(prevImg, 0, 0, mapWidth * cellWidth, mapHeight * cellWidth );
@@ -131,14 +135,16 @@ void draw() {
         }
     }
     
-    saveFrame("out/morphing_########.png");
+    if (isSave) {
+        saveFrame("out/morphing_#####.png");
+    }
     
     // next
-    frame = ( frame + 1 ) % frameDuration;
+    counter = ( counter + 1 ) % frameDuration;
 }
 
 
-// radial effect
+// radial direction
 //int getDir( int x, int y ) {
     
 //    int dir = 9; // koritsu
@@ -190,7 +196,7 @@ void draw() {
 //    return dir;
 //}
 
-// neutral
+// uniform direction
 int getDir(int x, int y, color targetColor) {
     
     int dir = 9; // alone

@@ -29,7 +29,7 @@ class Particle
             x = floor( random(width) );//floor( random(width/2) ) * 2;
             y = floor( random(height) );//floor( random(height/2) ) * 2;
         
-        } while (field[y * width + x] || (map.get( x, y ) & 0xff) < threshold );
+        } while (field[y * width + x] || (weightMap.get( x, y ) & 0xff) < threshold );
     }
 
     void update() {
@@ -64,7 +64,7 @@ class Particle
             int maxDir = 0;
             
             for ( int i = 0; i < nlen; i++ ) {
-                weight = float( map.get( x + nx[i], y + ny[i] ) & 0xff ) / 255.0 + random( -weightRandom, weightRandom );
+                weight = float( weightMap.get( x + nx[i], y + ny[i] ) & 0xff ) / 255.0 + random( -weightRandom, weightRandom );
                 if ( weight > maxWeight ) {
                     maxDir = i;
                     maxWeight = weight;

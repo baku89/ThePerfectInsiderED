@@ -31,7 +31,7 @@ final int mapGenerated   = -2;
 //String name = "b-wire_1";
 //String name = "neuron-core";
 //String name = "x11b_button";
-String name = "1sb_c4_wire";
+//String name = "1sb_c4_wire";
 
 
 final float rate = 1;

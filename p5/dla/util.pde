@@ -1,8 +1,10 @@
 import java.io.FilenameFilter;
 
 void changeWindowSize(int w, int h) {
+
     surface.setSize( w + frame.getInsets().left + frame.getInsets().right, h + frame.getInsets().top + frame.getInsets().bottom );
     size(w, h);
+    
 }
 
 File[] listImageFiles(String path) {
@@ -25,12 +27,13 @@ File[] listImageFiles(String path) {
         
     } else {
         // If it's not a directory
-        return null;
+        return new File[0];
     }
 }
 
 String resolveRelativePath(String path) {
     File file = new File(sketchPath("") + path);
+    
     try {
         return file.getCanonicalPath();
     } catch (Exception e) {
