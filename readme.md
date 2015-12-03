@@ -8,8 +8,8 @@ The tools for making "[Subete ga F ni naru(すべてがFになる)](http://f-noi
 
 A detailed making-of articles are here: [EN](http://baku89.com/article/2394) | [JA](http://baku89.com/article/2348)
 
-NOTE: These sources are pretty tangled and it probablly will not work propery on your environment.
+NOTE: These sources are pretty tangled and it probably will not work properly on your environment.
 
-## Licence
+## License
 
 This repository is published under a MIT License. See the included LICENSE file.
