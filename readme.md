@@ -6,7 +6,7 @@
 
 The tools for making "[Subete ga F ni naru(すべてがFになる)](http://f-noitamina.com)", 2015 fall anime. Its story contains computer science so I adopted "generative art" approach and used p5 and Golly for simulating many kind of cellular automata.
 
-A detailed making-of articles are here: [EN](http://baku89.com/article/2394) | [JA](http://baku89.com/article/2348)
+A detailed making-of articles are here: [Making of The perfect insider](https://baku89.com/making-of/ffff)
 
 NOTE: These sources are pretty tangled and it probably will not work properly on your environment.
 
